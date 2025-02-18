@@ -8,10 +8,12 @@ app = FastAPI()
 import os
 os.environ["OLLAMA_CUDA"] = "1"
 
+import re
+
 
 @app.get("/")
 def read_root():
-    jd ="""About the job
+        jd ="""About the job
             As a Software Developer at Bucketlist Rewards, you will help create the next generation of our rewards and recognition program. You will work collaboratively with a cross-functional agile team and gain experience with a wide variety of tasks. We value clean pragmatic solutions, sustainable growth, and provide opportunities based on your interests. If you're passionate about software development and would like to join a diverse and experienced team, we're looking for someone like you!
 
 
@@ -74,17 +76,22 @@ def read_root():
 
             At Bucketlist Rewards, we are committed to fostering a diverse, equitable, and inclusive workplace. We believe that varied perspectives drive innovation and creativity, and we welcome applicants from all backgrounds and experiences. We encourage individuals from underrepresented groups to apply, as we strive to build a team that reflects the diverse communities we serve. We are dedicated to creating an environment where everyone feels valued, respected, and empowered to contribute their best work."""
     
-    
+        # JD insights
+        llm = LLMService()
+        insights = llm.insights_query(jd)
+        insights = insights['message']['content']
+        
+        # # Remove deep seek thinking
+        insights = insights.split("/think")[1]
 
+        # Chroma semantic search        
+        res = DBService('resumes').queryDocuments([jd], 20)
+        docs = res["documents"][0]
 
-    # res = DBService('resumes').queryDocuments([jd], 20)
-    # docs = res["documents"][0]
-    # evaluations = []
-    # for i in range(5):
-    #     from_index = i
-    #     to_index = (i*5)+i
-    #     evaluations.append(LLMService().Scoring_LLMQuery(jd, docs[from_index:to_index]))
-
-    # scores = LLMService().Scoring_LLMQuery(jd, docs[0]) # 3 resumes
-    # scores  = ollama.generate(model="mistral", prompt="hii")
-    return LLMService().insights_query(jd)
+        # Scoring
+        res = llm.scoring_query(insights, docs[0]) # 3 resumes
+        res = res['message']['content']
+        
+        # Fetch JSON
+        res = llm.json_fetcher(res)
+        return res
