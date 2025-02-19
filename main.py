@@ -8,7 +8,7 @@ app = FastAPI()
 import os
 os.environ["OLLAMA_CUDA"] = "1"
 
-import re
+import json
 
 
 @app.get("/")
@@ -79,19 +79,30 @@ def read_root():
         # JD insights
         llm = LLMService()
         insights = llm.insights_query(jd)
+
         insights = insights['message']['content']
         
         # # Remove deep seek thinking
-        insights = insights.split("/think")[1]
+        # insights = insights.split("/think")[1]
 
-        # Chroma semantic search        
-        res = DBService('resumes').queryDocuments([jd], 20)
-        docs = res["documents"][0]
+        # # Chroma semantic search        
+        data = DBService('resumes').queryDocuments([jd], 20)
+        docs = data["documents"][0]
+        ids = data["ids"][0]
 
-        # Scoring
-        res = llm.scoring_query(insights, docs[0]) # 3 resumes
-        res = res['message']['content']
+        # # Scoring
+        # res = llm.scoring_query(insights, docs[0]) # 3 resumes
+        # res = res['message']['content']
         
-        # Fetch JSON
-        res = llm.json_fetcher(res)
+        # # Fetch JSON
+        # print(res)
+        
+
+        #Llama 
+        res = llm.scoring_query(insights, docs[0])
+        res = res['message']['content']
+        # res = llm.json_fetcher(res)
+        res = json.loads(res)
+
+        res["id"]=ids[0]
         return res

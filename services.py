@@ -48,8 +48,8 @@ class PDFService:
         
 class LLMService:   
     def __init__(self):
-        self.model="deepseek-r1:1.5b"
-        self.role="assistant"
+        self.model="llama3.2:1b"
+        self.role="user"
 
     def insights_query(self, job_description):
         prompt = jobdescription_insights(job_description)
@@ -59,9 +59,6 @@ class LLMService:
         prompt = resume_evaluation(job_description, resume)
         print(prompt)
         return ollama.chat(model=self.model, messages=[{"role": self.role, "content": prompt, "stream": False , "options":{"max_tokens": 50}}])
-        # return ollama.generate(model="deepseek-r1:1.5b", prompt=cls._evaluation_prompt(job_description, resume))
-            # No more explanations are needed. Just the scores for each resume. More like a JSON array of objects.
-            # Total score should be between 0-50 ( which you have to just sum up the above 5 scores)
 
     def json_fetcher(self, res):
         try:

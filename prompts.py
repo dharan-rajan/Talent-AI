@@ -1,4 +1,5 @@
 def resume_evaluation(job_description, resume):
+        print("length of job description and resume", len(job_description), len(resume))
         return f"""
             Given Job description and resumes
             
@@ -22,12 +23,22 @@ def resume_evaluation(job_description, resume):
             4. Education Fit (EF)
             5. Recent Experience (RE)
 
-            And return the JSON in the below format: the value should be score alone.
-            {
-                {"SM": "x","YOE": "y","IR": "z","EF": "u","RE": "v"}
-            }
+            And respond back ONLY in the below JSON format with the scores for each component. All other way of interpretation will be considered invalid.
+            EXAMPLE JSON OUTPUT:
+            {{
+                "SM": x,
+                "YOE": x,
+                "IR": x,
+                "EF": x,
+                "RE": x
+            }}
 
-            Only JSON is a valid response. No explanations are needed. Just the scores for the resume in proper JSON format
+            The score should be between 0 and 10
+            The keys should be the same as mentioned above as well as the order.
+            if not found relevant information, score 0 for that component.            
+
+            Only JSON is a valid response. No summary / explanations are needed.
+            
             """
     
 def jobdescription_insights(job_description):
