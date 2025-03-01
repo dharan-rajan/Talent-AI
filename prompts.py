@@ -17,20 +17,20 @@ def resume_evaluation(job_description, resume):
             Your job is to evaluate and score the resume based on how well they fit the given job description.
 
             Below are the key compontents that you need to evaluate - the score on each should be between 0 and 10:
-            1. Skill Match (SM)
-            2. Years of Experience (YOE)
-            3. Industry Relevance (IR)
-            4. Education Fit (EF)
-            5. Recent Experience (RE)
+            1. Skill Match (SM) - How well the skills in the resume match the job description
+            2. Industry Relevance (IR) - Commonality of the industry, domain, or similarity in business accumen the candidate worked with.
+            3. Educational Qualifications (EQ) - If the candidate posses the required educational qualifications as per the job description, else drop accordingly
+            4. Relevant Experience (RE) - Relavance of the experience the candidate has with the job description
+            5. Technical Knowledge (TK) - How well the technical knowledge of the candidate matches the job description
 
             And respond back ONLY in the below JSON format with the scores for each component. All other way of interpretation will be considered invalid.
             EXAMPLE JSON OUTPUT:
             {{
                 "SM": x,
-                "YOE": x,
                 "IR": x,
-                "EF": x,
+                "EQ": x,
                 "RE": x
+                "TK": x
             }}
 
             The score should be between 0 and 10
@@ -67,3 +67,74 @@ def jobdescription_insights(job_description):
         Anything that goes beyond this limit will be an invalid response because the token limit is just within 350 tokens.
         And dont add say anything like this is the best version or anything like that. Just the extracted information.
         """
+
+def resume_work_experience(resume):
+    return f"""
+        Here is the candidate's resume and you are the expert in extracting the information from the resume.
+        {resume}
+        ----------------------------------------------------------------------------------------
+
+        Given the resume - Summarize the work experience this candidate has obtained. 
+        Extract all the industrial work experience the person posesses and not skip any (should not include the academic details).
+        Also elaborate on what they have done and how it impacted the company. 
+        For example: dont just say "Used photoshop for image optimization" - also say how they used it and what was the impact.
+        The summary should be atleast 1500 characters and not more than 2000 characters.
+        """
+
+def resume_insights(resume):
+    return f"""
+        Here is the resume:
+        {resume}
+        ----------------------------------------------------------------------------------------
+
+        Given the resume - summarize and return the JSON with the below keys:
+        Please follow the below criterias mentioned in each key like how to extract the information and what to return.
+        1. Education - degrees (only bachelors and masters)
+        2. Hard Skills - Pragramming languages, frameworks, tools, etc
+        3. Certifications - any certifications and licenses they have.
+        4. Projects - any personal or open source projects they have worked on.
+        5. Publications - any publications they have done.
+        6. Volunteer - any volunteer work they have done.
+        
+        Respond with only the JSON. Do not include any introductory text, explanations, or additional comments
+        Fill all the above collected information in the below JSON format and return it. 
+        {{
+            "Education": [
+                {{
+                    "Degree": x,
+                    "Field": x,
+                    "University": x,
+                }},
+            ],
+            "Hard Skills": [
+                x,y,z
+            ],
+            "Certifications": [
+                {{
+                    "Name": x,
+                    "IssuedBy": x
+                }},
+            ],
+            "Projects": [
+                {{
+                    "Name": x,
+                    "Description": x
+                }},
+            ],
+            "Publications": [
+                {{
+                    "Title": x,
+                    "Publication": x
+                }},
+            ],
+            "Volunteer": [
+                {{
+                    "Organization": x,
+                    "Role": x
+                }}
+            ]
+        }}
+        """
+
+    
+   
