@@ -1,6 +1,6 @@
 Talent Pool Software - with AI capabilities
 Involving
-1. LLama 3.2 - 1.5b
+1. LLama 3.2 - 1b
 2. Chroma DB
 3. Fast API
 
@@ -11,6 +11,5 @@ Things learnt so far:
 4. CUDA support drivers, toolkit and cuDNN
 5. Ollama deployments
 6. vector DB storing and retrievals (semantic)
-7. Fine tuning the LLM
-8. Prompting techniques
-9. RAG strategies
+7. Prompting basics
+8. RAG strategies
