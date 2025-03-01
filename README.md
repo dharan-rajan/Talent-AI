@@ -8,12 +8,16 @@
 3. Fast API
 
 ## Architecture: <br>
-2 Endpoints - one to store the resume
-The other to filter the resumes as per JD
+We got 3 Endpoints:
+1. Upload a resume
+2. Upload a JD
+3. Scan resumes as per JD
 
 ![image](https://github.com/user-attachments/assets/331a396d-5cf7-4761-b3a2-f5134a1c5e60)
 
-![image](https://github.com/user-attachments/assets/1d57ab7b-6196-4c07-a21e-21ae150596b5)
+![image](https://github.com/user-attachments/assets/28196251-d83a-4671-98b7-047989d40617)
+
+![image](https://github.com/user-attachments/assets/a1026573-9c2f-4c97-8dc4-037f6ead1381)
 
 ## Things learnt so far:
 1. Tokenization
