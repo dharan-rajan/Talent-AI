@@ -6,6 +6,8 @@
 1. LLama 3.2 - 1b (with ollama)
 2. Chroma DB
 3. Fast API
+4. Mongo DB
+5. Next JS
 
 ## Architecture: <br>
 We got 3 Endpoints:
