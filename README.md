@@ -13,7 +13,7 @@ The other to filter the resumes as per JD
 
 ![image](https://github.com/user-attachments/assets/331a396d-5cf7-4761-b3a2-f5134a1c5e60)
 
-![image](https://github.com/user-attachments/assets/b89d533d-aa65-41dc-ab85-63f32e7300e5)
+![image](https://github.com/user-attachments/assets/1d57ab7b-6196-4c07-a21e-21ae150596b5)
 
 ## Things learnt so far:
 1. Tokenization
